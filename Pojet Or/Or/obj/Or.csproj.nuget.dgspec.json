@@ -1,0 +1,101 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj",
+        "projectName": "Or",
+        "projectPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj",
+        "packagesPath": "C:\\Users\\Formation\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\Formation\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "MaterialDesignColors": {
+              "target": "Package",
+              "version": "[5.2.1, )"
+            },
+            "MaterialDesignThemes.Wpf": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "SQLitePCLRaw.bundle_e_sqlite3": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
+            "SQLitePCLRaw.core": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
+            "SQLitePCLRaw.lib.e_sqlite3": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
+            "SQLitePCLRaw.provider.dynamic_cdecl": {
+              "target": "Package",
+              "version": "[2.1.10, )"
+            },
+            "System.Buffers": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "System.Memory": {
+              "target": "Package",
+              "version": "[4.5.3, )"
+            },
+            "System.Numerics.Vectors": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "System.Runtime.CompilerServices.Unsafe": {
+              "target": "Package",
+              "version": "[4.5.2, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

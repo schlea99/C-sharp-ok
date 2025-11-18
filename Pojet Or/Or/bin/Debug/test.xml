@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<Comptes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Compte>
+    <Identifiant>1</Identifiant>
+    <Type>Courant</Type>
+    <Solde>1800,00 €</Solde>
+    <Transactions>
+      <Transaction>
+        <Identifiant>1</Identifiant>
+        <Date>10/08/2025 10:12:23</Date>
+        <Montant>50,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Operation>Retrait</Operation>
+      </Transaction>
+      <Transaction>
+        <Identifiant>2</Identifiant>
+        <Date>11/08/2025 04:32:23</Date>
+        <Montant>200,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Operation>Virement</Operation>
+      </Transaction>
+      <Transaction>
+        <Identifiant>3</Identifiant>
+        <Date>20/08/2025 02:47:50</Date>
+        <Montant>100,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <Operation>Retrait</Operation>
+      </Transaction>
+      <Transaction>
+        <Identifiant>4</Identifiant>
+        <Date>20/08/2025 03:09:01</Date>
+        <Montant>100,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Operation>Virement</Operation>
+      </Transaction>
+    </Transactions>
+  </Compte>
+  <Compte>
+    <Identifiant>2</Identifiant>
+    <Type>Livret</Type>
+    <Solde>6600,00 €</Solde>
+    <Transactions>
+      <Transaction>
+        <Identifiant>2</Identifiant>
+        <Date>11/08/2025 04:32:23</Date>
+        <Montant>200,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Operation>Virement</Operation>
+      </Transaction>
+      <Transaction>
+        <Identifiant>4</Identifiant>
+        <Date>20/08/2025 03:09:01</Date>
+        <Montant>100,00 €</Montant>
+        <CompteExpediteur>1</CompteExpediteur>
+        <CompteDestinataire>2</CompteDestinataire>
+        <Operation>Virement</Operation>
+      </Transaction>
+    </Transactions>
+  </Compte>
+</Comptes>
+
+
+
+

@@ -1,0 +1,109 @@
+﻿<PageFunction x:Class="Or.Pages.Virement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      x:TypeArguments="sys:Int64"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Or.Pages"
+      xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Virement" KeepAlive="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="217"/>
+            <RowDefinition Height="Auto" MinHeight="355" />
+        </Grid.RowDefinitions>
+
+
+        <TextBlock x:Name="Titre" HorizontalAlignment="Left" Margin="102,44,0,0" TextWrapping="Wrap" Text="Virement" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold" Height="27" Width="120"/>
+
+        <StackPanel Margin="100,0,479,164" Orientation="Vertical" Grid.Row="1">
+            <Label x:Name="labelP" Content="Plafond maximum de virement" HorizontalAlignment="Stretch" Margin="0,0,0,8" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" FontSize="14"/>
+            <TextBlock x:Name="PlafondMax" HorizontalAlignment="Left" Margin="0,0,0,8" TextAlignment="left" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Background="#FFD2D0D0" Height="20" FontSize="14"/>
+
+            <Label x:Name="labelA" Content="Plafond de virement actualisé" HorizontalAlignment="Stretch" Margin="0,0,0,8" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" FontSize="14"/>
+            <TextBlock x:Name="PlafondActualise" HorizontalAlignment="Left" Margin=" 0,0,0,8" TextAlignment="left" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Background="#FFD2D0D0" Height="20" FontSize="14"/>
+
+            <Label x:Name="labelS" Content="Solde du compte à débiter" HorizontalAlignment="Stretch" Margin="0,0,0,8" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" FontSize="14"/>
+            <TextBlock x:Name="Solde" HorizontalAlignment="Left" Margin="0,0,0,8" TextAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Background="#FFD2D0D0" Height="20" FontSize="14"/>
+        </StackPanel>
+
+        <Label x:Name="labelE" Content="Compte à débiter" HorizontalAlignment="Left" Margin="102,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.237,0.385" Height="28" Width="101"/>
+        <ComboBox x:Name="Expediteur" HorizontalAlignment="Left" Margin="102,135,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Expediteur_SelectionChanged" Height="32" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="Id"/>
+                                <Binding Path="IdentifiantCarte"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" Foreground="Red" Padding="4" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ComboBox.GroupStyle>
+        </ComboBox>
+
+        <Label x:Name="labelD" Content="Compte à créditer" HorizontalAlignment="Left" Margin="302,100,0,0" VerticalAlignment="Top" Height="28" Width="103"/>
+        <ComboBox x:Name="Destinataire" HorizontalAlignment="Left" Margin="302,135,0,0" VerticalAlignment="Top" Width="120" Height="32">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1} {2}">
+                                <Binding Path="Id"/>
+                                <Binding Path="TypeDuCompte"/>
+                                <Binding Path="IdentifiantCarte"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" Foreground="Red" Padding="4" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ComboBox.GroupStyle>
+        </ComboBox>
+
+        <Label x:Name="labelM" Content="Montant" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" Height="28" Width="54"/>
+        <TextBox x:Name="Montant" HorizontalAlignment="Left" Margin="502,135,0,0" VerticalAlignment="Top" Width="120" Height="25" TextAlignment="Right" TextWrapping="Wrap"/>
+
+        <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Left" Margin="392,27,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Retour_Click" RenderTransformOrigin="1.03,0.988" Grid.Row="1"/>
+
+        <StackPanel Margin="54,150,446,0" Orientation="Vertical" Grid.Row="1" Height="193" VerticalAlignment="Top" >
+            <Button Content="Ajouter un Bénéficiaire" Margin="291,320,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="168" Height="30" Click="Ajouter_Click" RenderTransformOrigin="0.506,1.455" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="2.103"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="1.603"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
+
+        <Button x:Name="button" Content="Valider" HorizontalAlignment="Left" Margin="578,27,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="ValiderVirement_Click" Grid.Row="1"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="252,135,0,0" TextWrapping="Wrap" Text="⟹" VerticalAlignment="Top" Height="25" Width="20"/>
+
+    </Grid>
+</PageFunction>

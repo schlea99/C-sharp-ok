@@ -1,0 +1,38 @@
+﻿<PageFunction x:Class="Or.Pages.AjoutBenef"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      x:TypeArguments="sys:Int64"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Or.Pages"
+      xmlns:ec="clr-namespace:Or.Business"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Liste des Beneficiaires" KeepAlive="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="141*" />
+            <ColumnDefinition Width="19*" />
+            <ColumnDefinition Width="240*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <TextBlock x:Name="Titre" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ajouter un bénéficiaire" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <Label x:Name="labelM" Content="N° de compte du nouveau bénéficiaire" HorizontalAlignment="Left" Margin="26,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" Height="30" Width="250" Grid.Row="1"/>
+        <TextBox x:Name="Numero" HorizontalAlignment="Left" Margin="28,113,0,0" VerticalAlignment="Top" Width="200" Height="24" TextAlignment="Right" TextWrapping="Wrap" Grid.Row="1"/>
+
+        <Button x:Name="Ajouter" Content="Ajouter un bénéficiaire" HorizontalAlignment="Left" Margin="170,105,0,0" VerticalAlignment="Top" Height="30" Width="220" Click="Ajouter_Click" Grid.Column="2" Grid.Row="1"/>
+        <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Left" Margin="26,26,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Retour_Click" Grid.Row="2"/>
+
+    </Grid>
+</PageFunction>

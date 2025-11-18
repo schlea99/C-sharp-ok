@@ -1,0 +1,115 @@
+﻿<PageFunction x:Class="Or.Pages.HistoriqueTransactions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      x:TypeArguments="sys:Int64"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Or.Pages"
+      xmlns:models="clr-namespace:Or.Models"
+      xmlns:ec="clr-namespace:Or.Business"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HistoriqueTransactions">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Historique Transactions" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"/>
+        </StackPanel>
+
+
+        <ListView x:Name="listView" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" SizeChanged="ListView_SizeChanged">
+            <ListView.Resources>
+                <ec:EuroConverter x:Key="EuroConverter"/>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <!-- Id de transaction -->
+                    <GridViewColumn Header="Id" Width="35">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding IdTransaction}"
+                           Style="{StaticResource TextColumnStyle}"
+                           TextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Horodatage -->
+                    <GridViewColumn Header="Date" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock  Text="{Binding Horodatage, StringFormat='dd/MM/yyyy hh:mm:ss'}"
+                                                Style="{StaticResource TextColumnStyle}"
+                                                TextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Montant -->
+                    <GridViewColumn Header="Montant" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock  Text="{Binding Montant, StringFormat={}{0:C2}, Converter={StaticResource EuroConverter}}"
+                                                Style="{StaticResource TextColumnStyle}"
+                                                TextAlignment="Right" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <!-- Id de transaction -->
+                    <GridViewColumn Header="Expéditeur" Width="125">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock  Text="{Binding Expediteur}"
+                                                Style="{StaticResource TextColumnStyle}"
+                                                TextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Destinataire" Width="125">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock  Text="{Binding Destinataire}"
+                                                Style="{StaticResource TextColumnStyle}"
+                                                TextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="2" Grid.Column="0" >
+            <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Stretch" Margin="0,0,0,10" VerticalAlignment="Center" Click="Retour_Click"/>
+        </StackPanel>
+    </Grid>
+</PageFunction>
