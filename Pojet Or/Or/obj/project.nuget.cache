@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VsTh3qs7FJE1gOJiyNOfi1O3KjUic1GM2hCPyuZ9+V8hquwSOhNf154+VNInNLeEW1wKeT8aI0I+YpQi7FA8hw==",
+  "dgSpecHash": "LCdzo6Gebdmqd8X63SPb1qENGjKPLHEKK57DmTXwp7lWdjRcYT2X2nG665i/mDuiKXGwdJ48CNug4Fb5ZpqRjQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj",
+  "projectFilePath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\Projet Or\\Pojet Or\\Or\\Or.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Formation\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
     "C:\\Users\\Formation\\.nuget\\packages\\materialdesignthemes.wpf\\1.0.1\\materialdesignthemes.wpf.1.0.1.nupkg.sha512",

@@ -59,6 +59,11 @@ namespace Or.Pages
             PageFunctionNavigate(new CreationClient());
         }
 
+        private void GoSupprimerClient(object sender, RoutedEventArgs e)
+        {
+            PageFunctionNavigate(new SuppressionClient());
+        }
+
         void PageFunctionNavigate(PageFunction<long> page)
         {
             page.Return += new ReturnEventHandler<long>(PageFunction_Return);

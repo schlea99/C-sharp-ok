@@ -12,11 +12,13 @@
       Title="Accueil">
 
     <Grid>
-        <TextBlock x:Name="Titre" HorizontalAlignment="Left" Margin="302,122,0,0" TextWrapping="Wrap" Text="BANQUE" VerticalAlignment="Top" FontSize="36" Background="White"/>
-        <Button x:Name="Valider" Content="Valider" HorizontalAlignment="Left" Margin="354,310,0,0" VerticalAlignment="Top" FontSize="18" Click="GoConsultationCarte"/>
-        <TextBox x:Name="NumeroCarte" HorizontalAlignment="Left" Margin="288,256,0,0" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" FontSize="20"/>
-        <Label x:Name="labelN" Content="Numéro Carte" HorizontalAlignment="Left" Margin="288,225,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Button x:Name="CreationClient" Content="Créer un compte client" HorizontalAlignment="Left" Margin="559,374,0,0" VerticalAlignment="Top" FontSize="18" Click="GoCreerClient"/>
+        <TextBlock x:Name="Titre" HorizontalAlignment="Left" Margin="316,57,0,0" TextWrapping="Wrap" Text="BANQUE" VerticalAlignment="Top" FontSize="36" Background="White"/>
+        <Button x:Name="Valider" Content="Valider" HorizontalAlignment="Left" Margin="343,238,0,0" VerticalAlignment="Top" FontSize="18" Click="GoConsultationCarte"/>
+        <TextBox x:Name="NumeroCarte" HorizontalAlignment="Left" Margin="288,179,0,0" Foreground="{Binding Color}" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" FontSize="20"/>
+        <Label x:Name="labelN" Content="Numéro Carte" HorizontalAlignment="Left" Margin="288,147,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Button x:Name="CreationClient" Content="Créer un compte client" HorizontalAlignment="Left" Margin="454,356,0,0" VerticalAlignment="Top" FontSize="18" Click="GoCreerClient"/>
+        <Button x:Name="SuppressionClient" Content="Supprimer un compte client" HorizontalAlignment="Left" Margin="412,408,0,0" VerticalAlignment="Top" FontSize="18" Click="GoSupprimerClient"/>
+
 
     </Grid>
 </PageFunction>

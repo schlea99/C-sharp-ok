@@ -118,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SuppressionClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SuppressionLivret.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +179,9 @@
     </Compile>
     <Compile Include="Pages\ModifierPlafond.xaml.cs">
       <DependentUpon>ModifierPlafond.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SuppressionClient.xaml.cs">
+      <DependentUpon>SuppressionClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SuppressionLivret.xaml.cs">
       <DependentUpon>SuppressionLivret.xaml</DependentUpon>

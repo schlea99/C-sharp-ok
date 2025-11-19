@@ -82,7 +82,6 @@ namespace Or.Pages
         {
 
         }
-
         private void ValiderVirement_Click(object sender, RoutedEventArgs e)
         {
             // Debug lorsque les comptes destinataire et/ou expéditeur ne sont pas sélectionnés 

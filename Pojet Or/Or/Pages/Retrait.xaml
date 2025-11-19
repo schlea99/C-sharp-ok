@@ -18,21 +18,21 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="409*" />
+            <ColumnDefinition Width="76*" />
+            <ColumnDefinition Width="315*" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Margin="10" Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-            <TextBlock x:Name="Titre" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Retrait" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"/>
+            <TextBlock x:Name="Titre" HorizontalAlignment="Stretch" Margin="96,0,0,0" TextWrapping="Wrap" Text="Retrait" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"/>
         </StackPanel>
 
-        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+        <StackPanel Margin="106,10,10,10" Orientation="Vertical" Grid.Row="1" Grid.Column="0">
             <Label x:Name="labelM" Content="Montant" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" FontSize="14"/>
             <TextBox x:Name="Montant" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextAlignment="Right"/>
         </StackPanel>
 
-        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+        <StackPanel Margin="3,10,104,10" Orientation="Vertical" Grid.Row="1" Grid.Column="2">
             <Label x:Name="labelP" Content="Plafond maximum de retrait" HorizontalAlignment="Stretch" Margin="0,0,0,8" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.27" FontSize="14"/>
             <TextBlock x:Name="PlafondMaxRetrait" HorizontalAlignment="Left" Margin="0,0,0,8" TextAlignment="left" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Background="#FFD2D0D0" Height="20" FontSize="14"/>
 
@@ -44,9 +44,9 @@
         </StackPanel>
 
         <StackPanel Margin="10" Orientation="Vertical" Grid.Row="2" Grid.Column="2">
-            <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Stretch" Margin="0,0,0,0" MaxWidth="80" VerticalAlignment="Top" Click="Retour_Click"/>
+            <Button x:Name="Retour" Content="Retour" HorizontalAlignment="Stretch" Margin="0,0,117,0" MaxWidth="80" VerticalAlignment="Top" Click="Retour_Click"/>
         </StackPanel>
-        <StackPanel Margin="10" Orientation="Vertical" Grid.Row="2" Grid.Column="0">
+        <StackPanel Margin="10,10,45,10" Orientation="Vertical" Grid.Row="2" Grid.Column="0">
             <Button x:Name="button" Content="Valider" HorizontalAlignment="Stretch" Margin="0,0,0,0" MaxWidth="80" VerticalAlignment="Top" Click="ValiderRetrait_Click"/>
         </StackPanel>
     </Grid>

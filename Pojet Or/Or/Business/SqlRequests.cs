@@ -49,7 +49,7 @@ namespace Or.Business
 
         static readonly string queryNumLivret = "SELECT IFNULL(MAX(IdtCpt), 0) + 1 FROM COMPTE";
         static readonly string queryCreerLivret = "INSERT INTO COMPTE (IdtCpt, NumCarte, Solde, TypeCompte) VALUES (@Id, @Carte, @Solde, @Type)";
-   
+
         static readonly string querySupprLivret = "DELETE FROM COMPTE WHERE IdtCpt = @IdtCpt";
         static readonly string queryTransfert = "UPDATE COMPTE SET Solde = Solde + @SoldeLivret WHERE IdtCpt = @IdtCpt";
         static readonly string querySolde = "SELECT Solde FROM COMPTE WHERE IdtCpt = @IdtCpt";
@@ -57,6 +57,23 @@ namespace Or.Business
 
         static readonly string queryModifPlafond = "UPDATE CARTE SET PlafondRetrait = @Plafond WHERE NumCarte = @NumCarte";
 
+        static readonly string queryCarteExiste = "SELECT * FROM CARTE WHERE NumCarte = @NumCarte";
+        static readonly string querySupprBenefCarte = "DELETE FROM BENEFICIAIRES WHERE NumCarteBenef = @NumCarteBenef OR NumCarteClient = @NumCarteClient";
+        static readonly string querySupprBenefAutre = "DELETE FROM BENEFICIAIRES WHERE IdtCptBenef = @idCpt";
+        static readonly string querySupprHist = "DELETE FROM HISTTRANSACTION WHERE NumCarte = @NumCarte";
+        // static readonly string querySupprTransac = "DELETE FROM \"TRANSACTION\" WHERE CptExpediteur = @cpt OR CptDestinataire = @cpt";
+        static readonly string queryVerifHist = "DELETE FROM HISTTRANSACTION WHERE IdtTransaction IN (SELECT IdtTransaction FROM \"TRANSACTION\" WHERE CptExpediteur = @cpt OR CptDestinataire = @cpt)";
+        static readonly string queryReCompte = "SELECT IdtCpt FROM COMPTE WHERE NumCarte = @NumCarte";
+        static readonly string queryReSupprCompte = "DELETE FROM COMPTE WHERE NumCarte = @NumCarte";
+        static readonly string queryReSupprCarte = "DELETE FROM CARTE WHERE NumCarte = @NumCarte";
+
+        /* Idées à rajouter :
+        Cryptage - décryptage des données
+        Simulation de demandes de crédit
+        Dans la page virement, ne prendre en compte le montant du plafond que lorsque l'on fait des transactions vers un compte extérieur
+        Liste des cartes dans la page Accueil (mais il faut tout changer) avec MAJ lors de la création/suppression de client
+        Lors de l'ajout d'un bénéficiaire, on affiche aussi son nom et son prénom
+        */
 
 
         // Elements ajoutés : pour modifier le plafond d'une carte existante
@@ -284,7 +301,121 @@ namespace Or.Business
             }
         }
 
+        public static bool SupprimerCarte(long numCarte)
+        {
+            string connectionString = ConstructionConnexionString(fileDb);
 
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                // On vérifie que la carte que l'on veut supprimer existe dans la base de données 
+                using (var command = new SqliteCommand(queryCarteExiste, connection))
+                {
+                    command.Parameters.AddWithValue("@NumCarte", numCarte);
+                    long exist = (long)command.ExecuteScalar();
+
+                    if (exist == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        // On récupère les comptes associés à une carte 
+                        List<int> comptes = new List<int>();
+
+                        using (var coma = new SqliteCommand(queryReCompte, connection))
+                        {
+                            coma.Parameters.AddWithValue("@NumCarte", numCarte);
+
+                            // on ecrit les comptes trouvés dans la liste comptes
+                            using (var reader = coma.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    comptes.Add(reader.GetInt32(0));
+                                }
+                            }
+                        }
+
+                        // On supprime l'historique des transactions associés au numero de carte
+                        using (var comman = new SqliteCommand(querySupprHist, connection))
+                        {
+                            comman.Parameters.AddWithValue("@NumCarte", numCarte);
+
+                            comman.ExecuteNonQuery();
+                            comman.Parameters.Clear();
+                        }
+
+                        // On supprime les bénéficiaires associés de la carte
+                        using (var com = new SqliteCommand(querySupprBenefCarte, connection))
+                        {
+                            com.Parameters.AddWithValue("@NumCarteBenef", numCarte);
+                            com.Parameters.AddWithValue("@NumCarteClient", numCarte);
+
+                            com.ExecuteNonQuery();
+                            com.Parameters.Clear();
+                        }
+
+                        // On supprime les bénéficiaires avec un compte lié à la carte 
+                        foreach (int cpt in comptes)
+                        {
+                            using (var co = new SqliteCommand(querySupprBenefAutre, connection))
+                            {
+                                co.Parameters.AddWithValue("@idCpt", cpt);
+
+                                co.ExecuteNonQuery();
+                                co.Parameters.Clear();
+                            }
+                        }
+
+                        // On supprime l'historique des transactions pour les transactions liés les comptes 
+                        foreach (int cpt in comptes)
+                        {
+                            using (var verif = new SqliteCommand(queryVerifHist, connection))
+                            {
+                                verif.Parameters.AddWithValue("@cpt", cpt);
+
+                                verif.ExecuteNonQuery();
+                                verif.Parameters.Clear();
+                            }
+                        }
+
+                       // On supprime les transactions associées à chaque compte de la carte
+                       // attention ça efface toutes les transactions des comptes impliquées (le compte à supprimer et les AUTRES comptes aussi)
+                       /* foreach (int cpt in comptes)
+                        {
+                            using (var comm = new SqliteCommand(querySupprTransac, connection))
+                            {
+                                comm.Parameters.AddWithValue("@cpt", cpt);
+
+                                comm.ExecuteNonQuery();
+                                comm.Parameters.Clear();
+                            }
+                        }*/
+
+                        // On supprime les comptes associés à la carte 
+                        using (var comma = new SqliteCommand(queryReSupprCompte, connection))
+                        {
+                            comma.Parameters.AddWithValue("@NumCarte", numCarte);
+
+                            comma.ExecuteNonQuery();
+                            comma.Parameters.Clear();
+                        }
+
+                        // On supprime en dernier la carte 
+                        using (var comman = new SqliteCommand(queryReSupprCarte, connection))
+                        {
+                            comman.Parameters.AddWithValue("@NumCarte", numCarte);
+
+                            comman.ExecuteNonQuery();
+                            comman.Parameters.Clear();
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Obtention des infos d'une carte
@@ -745,7 +876,6 @@ namespace Or.Business
 
             return true;
         }
-
         private static string ConstructionConnexionString(string fileDb)
         {
             string dossierRef = Directory.GetCurrentDirectory();
@@ -768,7 +898,6 @@ namespace Or.Business
 
             return insertTransac;
         }
-
         private static SqliteCommand ConstructionInsertionHistTransaction(SqliteConnection connection, int idtTrans, long numCarte)
         {
             // Insertion de la transaction
@@ -799,7 +928,6 @@ namespace Or.Business
             return updateCompte;
         }
 
-
         // Projet Or - Partie 3 : Gestion des beneficiaires
         public static void AjouterBeneficiaire(long numCarteClient, int idCompteBenef)
         {
@@ -818,7 +946,6 @@ namespace Or.Business
                 }
             }
         }
-
         public static void SupprimerBeneficiaire(long numCarteClient, int idCompteBenef)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -844,7 +971,6 @@ namespace Or.Business
                 }
             }
         }
-
 
         public static bool EstBeneficiairePotentiel(int idCompte)
         {

@@ -1148,11 +1148,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj",
+      "projectUniqueName": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\Projet Or\\Pojet Or\\Or\\Or.csproj",
       "projectName": "Or",
-      "projectPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\Or.csproj",
+      "projectPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\Projet Or\\Pojet Or\\Or\\Or.csproj",
       "packagesPath": "C:\\Users\\Formation\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\formation-csharp\\Formation csharp\\Pojet Or\\Or\\obj\\",
+      "outputPath": "C:\\Users\\Formation\\Desktop\\Formation Csharp GitHub\\schlea99\\Projet Or\\Pojet Or\\Or\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

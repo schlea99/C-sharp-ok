@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Or.Business;
 using Or.Models;
+using Or.Pages;
 using System.ComponentModel;
 
 
@@ -27,32 +28,34 @@ namespace Or.Pages
     {
         private long NumCarteClient { get; set; }
         private long NumCarteBenef { get; set; }
- 
+        public long NomBenef { get; set; }
+        public long PrenomBenef { get; set; }
+
+
         public AjoutBenef(long numCarte)
         {
             InitializeComponent();
-
             NumCarteBenef = numCarte;
         }
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
-           
+
             if (int.TryParse(Numero.Text, out int idCptBenef))
             {
                 if (SqlRequests.EstBeneficiairePotentiel(idCptBenef))
                 {
                     List<Compte> comptes = SqlRequests.ListeComptesId(idCptBenef).ToList();
-                                                                                     
+
                     foreach (Compte c in comptes)
                     {
                         if ((c.TypeDuCompte == TypeCompte.Courant) || (c.TypeDuCompte == TypeCompte.Livret && NumCarteBenef == c.IdentifiantCarte))
                         {
                             try
-                            {
+                            {                               
                                 SqlRequests.AjouterBeneficiaire(NumCarteBenef, idCptBenef);
-                                MessageBox.Show("Bénéficiaire ajouté !");                               
+                                MessageBox.Show($"Bénéficiaire ajouté !");
                                 break;
                             }
                             catch (Exception ex)
@@ -71,13 +74,13 @@ namespace Or.Pages
                 else
                 {
                     MessageBox.Show("Numéro compte incorrect");
-                    
+
                 }
             }
             else
             {
                 MessageBox.Show("Saisie bénéficiaire invalide");
-                
+
             }
 
         }
