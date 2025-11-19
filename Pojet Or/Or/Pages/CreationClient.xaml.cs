@@ -5,6 +5,7 @@ using System.Windows.Navigation;
 using System.Text.RegularExpressions;
 using Or.Business;
 
+// Fonction ajoutée 
 namespace Or.Pages
 {
     /// <summary>
@@ -19,10 +20,11 @@ namespace Or.Pages
 
         public void CreerNouveauClient(object sender, RoutedEventArgs e)
         {
+            // On récupère le nom et prénom du client fourni dans l'application bancaire 
             string prenom = Prenom.Text.Trim();
             string nom = Nom.Text.Trim();
 
-            // Vérification nom et prénom alphabétiques
+            // Vérification nom et prénom de type alphabétique
             Regex regexNom = new Regex("^[A-Za-z]+$");
 
             if (!regexNom.IsMatch(prenom) || (!regexNom.IsMatch(nom)))
@@ -31,6 +33,7 @@ namespace Or.Pages
                 return;
             }
 
+            // On récupère le conseiller associé au client (fourni dans l'application bancaire)
             int idconseiller = int.Parse(IdConseiller.Text);
 
             // Vérification de la présence de l'id du conseiller dans la base de données 
@@ -43,7 +46,6 @@ namespace Or.Pages
             }
 
             // Vérification de l'entrée des informations 
-
             if (string.IsNullOrWhiteSpace(prenom) || string.IsNullOrWhiteSpace(nom) || string.IsNullOrWhiteSpace(idconseiller.ToString()))
             {
                 MessageBox.Show("Veuillez renseigner les informations du client", "Erreur de saisie", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -54,7 +56,6 @@ namespace Or.Pages
             MessageBox.Show($"Nouveau client crée avec succès ! Numéro de carte : {numCarte} et compte courant : {idCompte}");
 
             OnReturn(new ReturnEventArgs<long>(numCarte));
-
         }
 
         private void Retour_Click(object sender, RoutedEventArgs e)

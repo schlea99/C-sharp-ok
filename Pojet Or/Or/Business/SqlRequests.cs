@@ -14,6 +14,7 @@ namespace Or.Business
 {
     static public class SqlRequests
     {
+        // Addresse de la base de données
         static readonly string fileDb = "BaseAppBancaire.db";
 
         static readonly string queryComptesDispo = "SELECT IdtCpt, NumCarte, Solde, TypeCompte FROM COMPTE WHERE NOT IdtCpt=@IdtCpt";
@@ -39,30 +40,26 @@ namespace Or.Business
 
         static readonly string queryBeneficiairePotentiel = "SELECT COUNT(*) FROM COMPTE c WHERE c.IdtCpt = @idCompte";
 
+        // Requêtes ajoutées pour amélioration du projet (du 12/11/25 au ...)
         static readonly string queryConseiller = "SELECT CONSEILLER.\"IdConseiller \", CONSEILLER.NomConseiller, CONSEILLER.PrenomConseiller, CONSEILLER.EmailConseiller, CONSEILLER.TelConseiller FROM CONSEILLER INNER JOIN CARTE  ON CONSEILLER.\"IdConseiller \" = CARTE.\"IdConseiller \" WHERE CARTE.NumCarte = @NumCarte";
 
         static readonly string queryCreerClient = "INSERT INTO CARTE (NumCarte, PrenomClient, NomClient, PlafondRetrait, \"IdConseiller \") VALUES (@NumCarte, @Prenom, @Nom, @Plafond, @IdConseiller)"; // commande sql pour récupérer le numéro de carte de la ligne que l'on a crée dans la table CARTE
-
         static readonly string queryCreerCompte = "INSERT INTO COMPTE (NumCarte, Solde, TypeCompte) VALUES (@NumCarte, @Solde, @TypeCompte); SELECT last_insert_rowid();";
-
         static readonly string queryConseillerExiste = "SELECT * FROM CONSEILLER WHERE \"IdConseiller \" = @Id";
 
         static readonly string queryNumLivret = "SELECT IFNULL(MAX(IdtCpt), 0) + 1 FROM COMPTE";
-
         static readonly string queryCreerLivret = "INSERT INTO COMPTE (IdtCpt, NumCarte, Solde, TypeCompte) VALUES (@Id, @Carte, @Solde, @Type)";
-
-        static readonly string querySolde = "SELECT Solde FROM COMPTE WHERE IdtCpt = @IdtCpt";
-
-        static readonly string queryCourant = "SELECT IdtCpt FROM COMPTE WHERE NumCarte = @NumCarte AND TypeCompte = 'Courant'";
-
-        static readonly string queryTransfert = "UPDATE COMPTE SET Solde = Solde + @SoldeLivret WHERE IdtCpt = @IdtCpt";
-
+   
         static readonly string querySupprLivret = "DELETE FROM COMPTE WHERE IdtCpt = @IdtCpt";
+        static readonly string queryTransfert = "UPDATE COMPTE SET Solde = Solde + @SoldeLivret WHERE IdtCpt = @IdtCpt";
+        static readonly string querySolde = "SELECT Solde FROM COMPTE WHERE IdtCpt = @IdtCpt";
+        static readonly string queryCourant = "SELECT IdtCpt FROM COMPTE WHERE NumCarte = @NumCarte AND TypeCompte = 'Courant'";
 
         static readonly string queryModifPlafond = "UPDATE CARTE SET PlafondRetrait = @Plafond WHERE NumCarte = @NumCarte";
 
 
 
+        // Elements ajoutés : pour modifier le plafond d'une carte existante
         public static void ModifPlafond(long numCarte, int newPlafond)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -80,7 +77,6 @@ namespace Or.Business
                 }
             }
         }
-
 
         // Elements ajoutés : on récupère le conseiller bancaire associé à la carte
         public static Conseiller ConseillerAssocieCarte(long numCarte)
@@ -116,6 +112,7 @@ namespace Or.Business
             return conseiller;
         }
 
+        // Elements ajoutés : on vérifie que le conseiller existe avant de le déclarer pour la création de compte 
         public static bool ConseillerExiste(int idconseiller)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -142,7 +139,7 @@ namespace Or.Business
 
         }
 
-
+        // Elements ajoutés : générer le numéro de carte de façon aléatoire
         private static long GenererNumCarte()
         {
             Random numca = new Random();
@@ -153,7 +150,6 @@ namespace Or.Business
 
             return long.Parse(numCarte);
         }
-
 
 
         // Elements ajoutés : on crée un nouveau client, on crée d'abord une carte (numéro aléatoire) puis on lui associe un compte courant  
@@ -170,9 +166,7 @@ namespace Or.Business
             {
                 connection.Open();
 
-                //using (var client = connection.BeginTransaction())
-
-                // Créer la carte
+                // Créer une nouvelle carte dans la base de données 
                 using (var command = new SqliteCommand(queryCreerClient, connection))
                 {
                     command.Parameters.AddWithValue("@NumCarte", numCarte);
@@ -193,13 +187,11 @@ namespace Or.Business
 
                     idCompte = Convert.ToInt32(commandcompte.ExecuteScalar());
                 }
-
-                // client.Commit();
-
             }
             return (numCarte, idCompte);
         }
 
+        // Elements ajoutés : on crée un nouveau livret associé à une carte existante 
         public static void CreerLivret(long numCarte)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -208,7 +200,7 @@ namespace Or.Business
             {
                 connection.Open();
 
-                // Pour avoir un nouvel id livret
+                // On génère un nouvel id livret (à la suite du dernier id existant)
                 int newid = 0;
 
                 using (var command = new SqliteCommand(queryNumLivret, connection))
@@ -216,8 +208,7 @@ namespace Or.Business
                     command.Parameters.AddWithValue("@numCarte", numCarte);
                     newid = Convert.ToInt32(command.ExecuteScalar());
 
-
-                    // Creation du livret 
+                    // Creation du livret dans la base de données 
                     using (var cmdlivret = new SqliteCommand(queryCreerLivret, connection))
                     {
                         cmdlivret.Parameters.AddWithValue("@Id", newid);
@@ -233,6 +224,7 @@ namespace Or.Business
             }
         }
 
+        // Elements ajoutés : on peut supprimer un livret associé à un compte courant
         public static void SupprimerLivret(int idLivret)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -250,7 +242,7 @@ namespace Or.Business
             }
         }
 
-
+        // Elements ajoutés : on transfert le solde du livret vers le compte courant avant de supprimer le livret
         public static void TransfertLivretversCourant(int idLivret, long numCarte)
         {
             string connectionString = ConstructionConnexionString(fileDb);
@@ -259,7 +251,7 @@ namespace Or.Business
             {
                 connection.Open();
 
-                // On récupère le solde du livret
+                // On récupère le solde du livret dans la base de données
                 decimal soldeLivret = 0;
 
                 using (var command = new SqliteCommand(querySolde, connection))
@@ -271,7 +263,7 @@ namespace Or.Business
                 // si le solde du livret est supérieur à 0, on le transfere sur le compte courant avant fermeture du livret
                 if (soldeLivret > 0)
                 {
-                    // On récupère le compte courant
+                    // On récupère le compte courant dans la base de données 
                     int idCourant = 0;
 
                     using (var com = new SqliteCommand(queryCourant, connection))
@@ -280,7 +272,7 @@ namespace Or.Business
                         idCourant = Convert.ToInt32(com.ExecuteScalar());
                     }
 
-                    // On transfère le solde
+                    // On transfère le solde du livret vers le compte courant 
                     using (var comm = new SqliteCommand(queryTransfert, connection))
                     {
                         comm.Parameters.AddWithValue("@SoldeLivret", soldeLivret);
@@ -291,6 +283,8 @@ namespace Or.Business
                 }
             }
         }
+
+
 
         /// <summary>
         /// Obtention des infos d'une carte

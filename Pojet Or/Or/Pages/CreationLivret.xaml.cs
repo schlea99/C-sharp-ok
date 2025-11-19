@@ -5,6 +5,7 @@ using System.Windows.Navigation;
 using System.Text.RegularExpressions;
 using Or.Business;
 
+// Fonction ajoutée
 namespace Or.Pages
 {
     /// <summary>
@@ -12,6 +13,7 @@ namespace Or.Pages
     /// </summary>
     public partial class CreationLivret : PageFunction<long>
     {
+        // on récupère le NumCarte à partir de la page consultation carte
         private long NumCarte;
 
         public CreationLivret(long numCarte)
@@ -24,6 +26,7 @@ namespace Or.Pages
         {
             try
             {
+                // On crée un nouveau livret associé à la carte du client
                 SqlRequests.CreerLivret(NumCarte);
                 MessageBox.Show("Livret crée avec succès !", "Opération réussie", MessageBoxButton.OK, MessageBoxImage.Information);
                 OnReturn(new ReturnEventArgs<long>(NumCarte));

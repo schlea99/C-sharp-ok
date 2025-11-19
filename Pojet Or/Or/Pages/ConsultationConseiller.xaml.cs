@@ -6,6 +6,7 @@ using Or.Business;
 using Or.Models;
 using Or.Pages;
 
+// Fonction ajoutée 
 namespace Or.Pages
 {
     /// <summary>
@@ -19,6 +20,7 @@ namespace Or.Pages
 
             Conseiller c = SqlRequests.ConseillerAssocieCarte(numCarte);
 
+            // Affichage du conseiller dans l'application bancaire 
             if (c != null)
             {
                 Nom.Text = "Nom : " + c.NomConseiller;
